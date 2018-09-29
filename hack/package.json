@@ -15,6 +15,7 @@
     "fetch": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "jQuery": "^1.7.4",
+    "jpeg-js": "^0.3.4",
     "jquery": "^3.3.1",
     "jsdom": "^12.0.0",
     "location": "^0.0.1",

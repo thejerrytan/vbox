@@ -179,6 +179,77 @@ document.getElementById('delete').addEventListener('click', async () => {
   });
 });
 
+import async from 'async';
+document.getElementById('fetch').addEventListener('click', async () => {
+  fetch('http://localhost:1234/imagesFromStorage').then(
+    response => response.json())
+  .then((responseJSON) => {
+      console.log(responseJSON.files);
+      for (var dir in responseJSON.files) {
+        var label = dir.split("/").slice(-1)[0];
+        async.each(responseJSON.files[dir].map(file => [label,file]), function(labelFile, callback) {
+          loadImage(labelFile[0], labelFile[1], callback);
+        }, function(err) {
+          if (err) throw err;
+          console.log("Finished " + dir);
+        });
+        
+      }
+    });
+});
+
+const jpeg = require('jpeg-js');
+const decodeImage = source => {
+  console.time('decodeImage');
+  const buf = Buffer.from(source, 'base64')
+  const pixels = jpeg.decode(buf, true);
+  logTimeAndMemory('decodeImage')
+  return pixels
+}
+
+function loadImage(label, filename, callback) {
+  const url = encodeURI("http://localhost:1234/image/" + label + "/" + filename);
+  console.log(url);
+  fetch(url).then((response) => {
+    if (response.status == 200) {
+      return response.text()
+    } else {
+      return response.json();
+    }
+  })
+  .then((base64String) => {
+    var image = new Image(),
+      containerWidth = null,
+      containerHeight = null;
+
+    image.onload=function(){
+      containerWidth = image.width;
+      containerHeight = image.height;
+      const tfImg = tf.tidy(() => {
+
+        // Reads the image as a Tensor from the webcam <video> element.
+        const webcamImage = tf.fromPixels(image);
+
+        // Crop the image so we're using the center square of the rectangular
+        // webcam.
+        const croppedImage = webcam.cropImage(webcamImage);
+
+        // Expand the outer most dimension so we have a batch size of 1.
+        const batchedImage = croppedImage.expandDims(0);
+
+        // Normalize the image between -1 and 1. The image comes in between 0-255,
+        // so we divide by 127 and subtract 1.
+        return batchedImage.toFloat().div(tf.scalar(127)).sub(tf.scalar(1));
+      });
+      const labelIdx = labels.indexOf(label);
+      console.log(label, labelIdx);
+      controllerDataset.addExample(mobilenet.predict(tfImg), labelIdx);
+    }
+    image.src = base64String;
+    callback();
+  });
+}
+
 async function init() {
   try {
     await webcam.setup();

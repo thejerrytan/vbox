@@ -33,7 +33,7 @@ export class Webcam {
     const data = {
       "label": this.currentLabel,
       "image": btoa(image),
-      "fileName": uuidv4() 
+      "fileName": uuidv4() + ".png"
     };
     fetch("http://localhost:1234/upload", {
       "method": "post",

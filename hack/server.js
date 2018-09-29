@@ -32,6 +32,7 @@ var server = app.listen(1234, function () {
 
 app.post('/upload', function (req, res) {
     var base64Data = req.body['image'].replace(/^data:image\/png;base64,/,"");
+    console.log(base64Data.substring[0,20]);
     var label = req.body['label'];
     var fileName = req.body['fileName'];
     console.log(label);
@@ -77,10 +78,51 @@ app.post('/delete', function(req, res) {
     }
 })
 
-// var async = require('async');
-// app.get('/images', function(req, res) {
-//     const dirs = getDirectories("/Users/Jerry/Desktop/data/")
-//     async.forEachOf(dirs, (dir, callback) => {
-//         dirs
-//     })
-// })
+var async = require('async');
+app.get('/imagesFromStorage', function(req, res) {
+    const dirs = getDirectories(DATADIR);
+    var result = {};
+    async.each(dirs, (dir, callback) => {
+        console.log(dir);
+        result[dir] = [];
+        fs.readdir(dir, (err, files) => {
+            if (err) throw err;
+            for (const file of files) {
+                result[dir].push(file);
+            }
+            callback();
+        });
+    }, err => {
+        if (err) {
+            console.error(err.message);
+            return res.json({
+                "message": "failure",
+                "files": result
+            });
+        }
+        console.log("SUCCESSFUL retrieved all files");
+        console.log(result);
+        return res.json({
+            "message": "success",
+            "files": result
+        });
+    });
+});
+
+app.get('/image/:label/:filename', function(req, res) {
+    console.log(req.params);
+    fs.readFile(DATADIR + "/" + req.params.label + "/" + req.params.filename, function(err, data) {
+        if (!err) {
+            // console.log(data);
+            var img = new Buffer(data, 'base64');
+            res.writeHead(200, {
+                'Content-Type': 'image/png',
+                'Content-Length': img.length
+            });
+            res.end(img);
+        } else {
+            res.status(404).json({"message": "failure"});
+        }
+        
+    });
+})

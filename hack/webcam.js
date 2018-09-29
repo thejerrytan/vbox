@@ -15,6 +15,7 @@
  * =============================================================================
  */
 import * as tf from '@tensorflow/tfjs';
+const uuidv4 = require("uuid/v4");
 
 /**
  * A class that wraps webcam video elements to capture Tensor4Ds.
@@ -25,14 +26,44 @@ export class Webcam {
    */
   constructor(webcamElement) {
     this.webcamElement = webcamElement;
+    this.currentLabel = "idle";
+  }
+
+  uploadImageToS3(image, callback) {
+    const data = {
+      "label": this.currentLabel,
+      "image": btoa(image),
+      "fileName": uuidv4() 
+    };
+    fetch("http://localhost:1234/upload", {
+      "method": "post",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "body": JSON.stringify(data)
+    }).then((response) => {
+      console.log(response.json());
+      callback();
+    });
   }
 
   /**
    * Captures a frame from the webcam and normalizes it between -1 and 1.
    * Returns a batched image (1-element batch) of shape [1, w, h, c].
    */
-  capture() {
+  capture(save) {
+    if (save) {
+      var video = this.webcamElement;
+      var canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d')
+            .drawImage(video, 0, 0, canvas.width, canvas.height);
+      this.uploadImageToS3(canvas.toDataURL(), function() {});
+      
+    }
     return tf.tidy(() => {
+
       // Reads the image as a Tensor from the webcam <video> element.
       const webcamImage = tf.fromPixels(this.webcamElement);
 

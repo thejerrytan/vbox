@@ -5,6 +5,9 @@ var path = require('path');
 var bodyParser = require('body-parser');
 const { join } = require('path');
 
+
+const DATADIR = "/Users/horensen/Desktop/data/";
+
 app.use(express.static(__dirname));
 app.use(bodyParser({'limit':'50mb'}));
 app.use(function (req, res, next) {
@@ -32,7 +35,7 @@ app.post('/upload', function (req, res) {
     var label = req.body['label'];
     var fileName = req.body['fileName'];
     console.log(label);
-    var directory = "/Users/Jerry/Desktop/data/" + label;
+    var directory = DATADIR + label;
     fs.stat(directory, function(err, stats) {
         if (err && err.errno == 34) {
             // directory does not exist, create it
@@ -60,7 +63,7 @@ const isDirectory = source => fs.lstatSync(source).isDirectory()
 const getDirectories = source =>
   fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory)
 app.post('/delete', function(req, res) {
-    const dirs = getDirectories("/Users/Jerry/Desktop/data/")
+    const dirs = getDirectories(DATADIR)
     for (const dir of dirs) {
         fs.readdir(dir, (err, files) => {
             if (err) throw err;

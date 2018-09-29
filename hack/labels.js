@@ -13,5 +13,5 @@
 // "sorry", "got to go", "I have a", "presentation", "to deliver", "IDLE", "TERMINAL"];
 
 const labels = ["hi", "my name is", "j", "k"];
-
+console.log(labels);
 export default labels;

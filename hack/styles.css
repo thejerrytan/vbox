@@ -200,6 +200,15 @@ header b {
   height: 160px;
   transform: scaleX(-1);
 }
+.webcamP{
+  transform: scaleX(-1);
+  width: 100%
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
 .hyper-params {
   display: flex;
   flex-direction: column;

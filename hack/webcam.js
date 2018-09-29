@@ -52,16 +52,16 @@ export class Webcam {
    * Returns a batched image (1-element batch) of shape [1, w, h, c].
    */
   capture(save) {
-    if (save) {
-      var video = this.webcamElement;
-      var canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      canvas.getContext('2d')
-            .drawImage(video, 0, 0, canvas.width, canvas.height);
-      this.uploadImageToS3(canvas.toDataURL(), function() {});
+    // if (save) {
+    //   var video = this.webcamElement;
+    //   var canvas = document.createElement("canvas");
+    //   canvas.width = video.videoWidth;
+    //   canvas.height = video.videoHeight;
+    //   canvas.getContext('2d')
+    //         .drawImage(video, 0, 0, canvas.width, canvas.height);
+    //   this.uploadImageToS3(canvas.toDataURL(), function() {});
       
-    }
+    // }
     return tf.tidy(() => {
 
       // Reads the image as a Tensor from the webcam <video> element.
@@ -111,6 +111,7 @@ export class Webcam {
   async setup() {
     return new Promise((resolve, reject) => {
       const navigatorAny = navigator;
+
       navigator.getUserMedia = navigator.getUserMedia ||
           navigatorAny.webkitGetUserMedia || navigatorAny.mozGetUserMedia ||
           navigatorAny.msGetUserMedia;

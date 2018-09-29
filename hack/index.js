@@ -28,12 +28,14 @@ const NUM_CLASSES = labels.length;
 
 // A webcam class that generates Tensors from the images from the webcam.
 const webcam = new Webcam(document.getElementById('webcam'));
+// const webcamP = new Webcam(document.getElementById('webcamP'));
 
 // The dataset object where we will store activations.
 const controllerDataset = new ControllerDataset(NUM_CLASSES);
 
 let mobilenet;
 let model;
+let sentence = [];
 
 // Loads mobilenet and returns a model that returns the internal activation
 // we'll use as input to our classifier model.
@@ -121,6 +123,7 @@ async function train() {
     epochs: ui.getEpochs(),
     callbacks: {
       onBatchEnd: async (batch, logs) => {
+        console.log(logs.loss.toFixed(10));
         ui.trainStatus('Loss: ' + logs.loss.toFixed(10));
       }
     }
@@ -166,8 +169,8 @@ document.getElementById('train').addEventListener('click', async () => {
   train();
 });
 document.getElementById('predict').addEventListener('click', () => {
-  ui.startPacman();
   isPredicting = true;
+  ui.initTimer();
   predict();
 });
 
@@ -253,6 +256,7 @@ function loadImage(label, filename, callback) {
 async function init() {
   try {
     await webcam.setup();
+    // await webcamP.setup();
   } catch (e) {
     document.getElementById('no-webcam').style.display = 'block';
   }
@@ -261,10 +265,14 @@ async function init() {
   // Warm up the model. This uploads weights to the GPU and compiles the WebGL
   // programs so the first time we collect data from the webcam it will be
   // quick.
+  
   tf.tidy(() => mobilenet.predict(webcam.capture(false)));
+  // tf.tidy(() => mobilenet.predict(webcamP.capture(false)));
 
   ui.init();
 }
 
 // Initialize the application.
-init();
+window.onload = function() {
+  init();  
+}

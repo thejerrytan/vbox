@@ -32,7 +32,7 @@ var server = app.listen(1234, function () {
 
 app.post('/upload', function (req, res) {
     var base64Data = req.body['image'].replace(/^data:image\/png;base64,/,"");
-    console.log(base64Data.substring[0,20]);
+    console.log(base64Data.substring(0,20));
     var label = req.body['label'];
     var fileName = req.body['fileName'];
     console.log(label);

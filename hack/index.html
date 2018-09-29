@@ -17,7 +17,7 @@ limitations under the License.
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Webcam Pacman</title>
+  <title>Outspoken</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-teal.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -25,52 +25,36 @@ limitations under the License.
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <header>
-    Turn your <b>Web Camera</b> into a controller using a <b>Neural Network</b>.
-  </header>
-  <div id="no-webcam">
-      No webcam found. <br/>
-      To use this demo, use a device with a webcam.
-    </div>
-  <!-- Top -->
-  <div id="pacman-container">
-    <div id="logo">
-      <div id="logo-l">
-        <div id="logo-b">
-        </div>
-      </div>
-    </div>
-  </div>
+  <header><b>Outspoken</b> [ <span id="presentation_link" onclick="openTrainingMode();">Training</span> | <span id="training_link" onclick="openPresentationMode();">Presentation</span> ]</header>
 
-  <div id="status">Loading mobilenet...</div>
+  <div id="status"><div>
 
-  <div class="controller-panels" id="controller" style="display:none">
+  <div id="training_mode">
+    <div class="controller-panels" id="controller" style="display:none; text-align:left">
+      <div class="panel training-panel">
+        <!-- Big buttons. -->
+        <div class="panel-row big-buttons">
+          <button id="train">
+            <img width="66" height="66" src="./images/button.svg" />
+            <span id="train-status">TRAIN</span>
+          </button>
+          <button id="predict">
+            <img width="66" height="66" src="./images/button.svg" />
+            <span>PLAY</span>
+          </button>
 
-    <div class="panel training-panel">
+          <button id="delete">
+            <img width="66" height="66" src="./images/button.svg" />
+            <span>DELETE</span>
+          </button>
 
-      <!-- Big buttons. -->
-      <div class="panel-row big-buttons">
-        <button id="train">
-          <img width="66" height="66" src="./images/button.svg" />
-          <span id="train-status">TRAIN</span>
+          <button id="fetch">
+            <img width="66" height="66" src="./images/button.svg" />
+            <span>FETCH</span>
         </button>
-        <button id="predict">
-          <img width="66" height="66" src="./images/button.svg" />
-          <span>PLAY</span>
-        </button>
+        </div><!-- /.panel-row -->
 
-        <button id="delete">
-          <img width="66" height="66" src="./images/button.svg" />
-          <span>DELETE</span>
-        </button>
-
-        <button id="fetch">
-          <img width="66" height="66" src="./images/button.svg" />
-          <span>FETCH</span>
-        </button>
-      </div><!-- /.panel-row -->
-
-      <div class="panel-row params-webcam-row">
+        <div class="panel-row params-webcam-row">
 
         <!-- Hyper params. -->
         <div class="hyper-params">
@@ -133,357 +117,316 @@ limitations under the License.
           </div>
         </div>
 
-      </div><!-- /.panel-row -->
+        <p align="left">
+          <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
+        </p>
 
-    </div><!-- /.panel -->
+      </div><!-- /.panel -->
 
-
-    </div><!-- /.panel -->
-
-  </div><!-- /#controller -->
-
-
-  <!-- ROW NUMBER 1 -->
-  <div class="panel-row joystick-panel">
-    <div class="hi">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="hi-thumb"></canvas>
-              </div>
-              <button class="record-button" id="hi"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="hi-total">0</span> examples
-            </p>
-            <p>Hi</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="my-name-is">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="my name is-thumb"></canvas>
-              </div>
-              <button class="record-button" id="my name is"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="my name is-total">0</span> examples
-            </p>
-            <p>My name is</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="j">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="j-thumb"></canvas>
-              </div>
-              <button class="record-button" id="j"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="j-total">0</span> examples
-            </p>
-            <p>J</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="k">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="k-thumb"></canvas>
-              </div>
-              <button class="record-button" id="k"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="k-total">0</span> examples
-            </p>
-            <p>K</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="nice-to">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="nice to-thumb"></canvas>
-              </div>
-              <button class="record-button" id="nice to"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="nice to-total">0</span> examples
-            </p>
-            <p>nice to</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="meet">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="meet-thumb"></canvas>
-              </div>
-              <button class="record-button" id="meet"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="meet-total">0</span> examples
-            </p>
-            <p>meet</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="you">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="you-thumb"></canvas>
-              </div>
-              <button class="record-button" id="you"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="you-total">0</span> examples
-            </p>
-            <p>you</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="what-is">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="what is-thumb"></canvas>
-              </div>
-              <button class="record-button" id="what is"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="what is-total">0</span> examples
-            </p>
-            <p>What is</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="your">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="your-thumb"></canvas>
-              </div>
-              <button class="record-button" id="your"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="your-total">0</span> examples
-            </p>
-            <p>your</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="i-am">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="i am-thumb"></canvas>
-              </div>
-              <button class="record-button" id="i am"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="i am-total">0</span> examples
-            </p>
-            <p>I am</p>
-          </div>
-        </div><!-- ./panel-cell -->
-
-    <div class="deaf">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="deaf-thumb"></canvas>
-              </div>
-              <button class="record-button" id="deaf"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="deaf-total">0</span> examples
-            </p>
-            <p>deaf</p>
-          </div>
-        </div><!-- ./panel-cell -->
+    </div><!-- /#controller -->
   </div>
 
-
-  <!-- ROW NUMBER 2 -->
-  <div class="panel-row joystick-panel">
-    <div class="but">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="but-thumb"></canvas>
+  <div class="controller-panels">
+    <!-- ROW NUMBER 1 -->
+    <div class="panel-row joystick-panel" style="justify-content:center;width:-webkit-fill-available">
+      <div class="hi">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="hi-thumb"></canvas>
+                </div>
+                <button class="record-button" id="hi"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="but"/><span>Add Sample</span></button>
+              <p>
+                <span id="hi-total">0</span> examples
+              </p>
+              <p>Hi</p>
             </div>
-            <p>
-              <span id="but-total">0</span> examples
-            </p>
-            <p>but</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="happy-to-be">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="happy to be-thumb"></canvas>
+      <div class="my-name-is">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="my name is-thumb"></canvas>
+                </div>
+                <button class="record-button" id="my name is"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="happy to be"/><span>Add Sample</span></button>
+              <p>
+                <span id="my name is-total">0</span> examples
+              </p>
+              <p>My name is</p>
             </div>
-            <p>
-              <span id="happy to be-total">0</span> examples
-            </p>
-            <p>happy to be</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="talking-to">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="talking to-thumb"></canvas>
+      <div class="j">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="j-thumb"></canvas>
+                </div>
+                <button class="record-button" id="j"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="talking to"/><span>Add Sample</span></button>
+              <p>
+                <span id="j-total">0</span> examples
+              </p>
+              <p>J</p>
             </div>
-            <p>
-              <span id="talking to-total">0</span> examples
-            </p>
-            <p>talking to</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="sorry">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="sorry-thumb"></canvas>
+      <div class="nice-to">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="nice to-thumb"></canvas>
+                </div>
+                <button class="record-button" id="nice to"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="sorry"/><span>Add Sample</span></button>
+              <p>
+                <span id="nice to-total">0</span> examples
+              </p>
+              <p>nice to</p>
             </div>
-            <p>
-              <span id="sorry-total">0</span> examples
-            </p>
-            <p>sorry</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="got-to-go">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="got to go-thumb"></canvas>
+      <div class="meet">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="meet-thumb"></canvas>
+                </div>
+                <button class="record-button" id="meet"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="got to go"/><span>Add Sample</span></button>
+              <p>
+                <span id="meet-total">0</span> examples
+              </p>
+              <p>meet</p>
             </div>
-            <p>
-              <span id="got to go-total">0</span> examples
-            </p>
-            <p>got to go</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="up">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="up-thumb"></canvas>
+      <div class="you">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="you-thumb"></canvas>
+                </div>
+                <button class="record-button" id="you"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="up"/><span>Add Sample</span></button>
+              <p>
+                <span id="you-total">0</span> examples
+              </p>
+              <p>you</p>
             </div>
-            <p>
-              <span id="up-total">0</span> examples
-            </p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="i-have-a">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="i have a-thumb"></canvas>
+      <div class="what-is">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="what is-thumb"></canvas>
+                </div>
+                <button class="record-button" id="what is"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="i have a"/><span>Add Sample</span></button>
+              <p>
+                <span id="what is-total">0</span> examples
+              </p>
+              <p>What is</p>
             </div>
-            <p>
-              <span id="i have a-total">0</span> examples
-            </p>
-            <p>I have a</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="presentation">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="presentation-thumb"></canvas>
+      <div class="i-am">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="i am-thumb"></canvas>
+                </div>
+                <button class="record-button" id="i am"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="presentation"/><span>Add Sample</span></button>
+              <p>
+                <span id="i am-total">0</span> examples
+              </p>
+              <p>I am</p>
             </div>
-            <p>
-              <span id="presentation-total">0</span> examples
-            </p>
-            <p>presentation</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
 
-    <div class="to-deliver">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="to deliver-thumb"></canvas>
+      <div class="deaf">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="deaf-thumb"></canvas>
+                </div>
+                <button class="record-button" id="deaf"/><span>Add Sample</span></button>
               </div>
-              <button class="record-button" id="to deliver"/><span>Add Sample</span></button>
+              <p>
+                <span id="deaf-total">0</span> examples
+              </p>
+              <p>deaf</p>
             </div>
-            <p>
-              <span id="to deliver-total">0</span> examples
-            </p>
-            <p>to deliver</p>
-          </div>
-        </div><!-- ./panel-cell -->
+          </div><!-- ./panel-cell -->
+    </div>
 
-    <div class="idle">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="idle-thumb"></canvas>
-              </div>
-              <button class="record-button" id="idle"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="idle-total">0</span> examples
-            </p>
-            <p>IDLE</p>
-          </div>
-        </div><!-- ./panel-cell -->
 
-    <div class="terminal">
-          <div class="thumb-box">
-            <div class="thumb-box-outer">
-              <div class="thumb-box-inner">
-                <canvas class="thumb" width=224 height=224 id="terminal-thumb"></canvas>
-              </div>
-              <button class="record-button" id="terminal"/><span>Add Sample</span></button>
-            </div>
-            <p>
-              <span id="terminal-total">0</span> examples
-            </p>
-            <p>TERMINAL</p>
-          </div>
-        </div><!-- ./panel-cell -->
   </div>
 
+  <div class="controller-panels">
+    <!-- ROW NUMBER 2 -->
+    <div class="panel-row joystick-panel", style="justify-content:center;width:-webkit-fill-available">
 
-  <p id="copyright">PAC-MAN&trade; &copy; BANDAI NAMCO Entertainment Inc.</p>
+      <div class="happy-to-be">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="happy to be-thumb"></canvas>
+                </div>
+                <button class="record-button" id="happy to be"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="happy to be-total">0</span> examples
+              </p>
+              <p>happy to be</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="talking-to">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="talking to-thumb"></canvas>
+                </div>
+                <button class="record-button" id="talking to"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="talking to-total">0</span> examples
+              </p>
+              <p>talking to</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="sorry">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="sorry-thumb"></canvas>
+                </div>
+                <button class="record-button" id="sorry"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="sorry-total">0</span> examples
+              </p>
+              <p>sorry</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="got-to-go">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="got to go-thumb"></canvas>
+                </div>
+                <button class="record-button" id="got to go"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="got to go-total">0</span> examples
+              </p>
+              <p>got to go</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="terminal">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="terminal-thumb"></canvas>
+                </div>
+                <button class="record-button" id="terminal"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="terminal-total">0</span> examples
+              </p>
+              <p>terminal</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="i-have-a">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="i have a-thumb"></canvas>
+                </div>
+                <button class="record-button" id="i have a"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="i have a-total">0</span> examples
+              </p>
+              <p>I have a</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="presentation">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="presentation-thumb"></canvas>
+                </div>
+                <button class="record-button" id="presentation"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="presentation-total">0</span> examples
+              </p>
+              <p>presentation</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="to-deliver">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="to deliver-thumb"></canvas>
+                </div>
+                <button class="record-button" id="to deliver"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="to deliver-total">0</span> examples
+              </p>
+              <p>to deliver</p>
+            </div>
+          </div><!-- ./panel-cell -->
+
+      <div class="idle">
+            <div class="thumb-box">
+              <div class="thumb-box-outer">
+                <div class="thumb-box-inner">
+                  <canvas class="thumb" width=224 height=224 id="idle-thumb"></canvas>
+                </div>
+                <button class="record-button" id="idle"/><span>Add Sample</span></button>
+              </div>
+              <p>
+                <span id="idle-total">0</span> examples
+              </p>
+              <p>IDLE</p>
+            </div>
+          </div><!-- ./panel-cell -->
+    </div>
+  </div>
+
+  </div>
+  <div id="presentation_mode">
+    <div id="presentation_left" style="width:49.5%;float:left">
+      <p style="color: white; text-align: center;">Tracking hand</p>
+    </div>
+    <div id="presentation_right" style="width:49.5%;float:right">
+      <p style="color: white; text-align: center;">Actual Cam</p>
+    </div>
+    <div class="clearfix"></div>
+    <div id="presentation_captions" style="padding:12px 24px;color:white;font-size: 24px;">
+      <p>Captions will appear here</p>
+    </div>
+    <!-- <video autoplay playsinline muted id="webcamP" width="224" height="224"></video> -->
+  </div>
 
   <script type="text/javascript" src="async.js"></script>
   <script src="https://storage.googleapis.com/tfjs-examples/assets/webcam-transfer-learning/pacman-google.js"></script>
   <script src="index.js"></script>
+  <script src="presentation.js"></script>
 </body>
 </html>

@@ -22,7 +22,25 @@ const CONTROL_CODES = [38, 40, 37, 39];
 
 export function init() {
   document.getElementById('controller').style.display = '';
-  statusElement.style.display = 'none';
+  // statusElement.style.display = 'none';
+}
+
+function addPredictionToSentence() {
+  console.log("Running addPredictionToSentence");
+  if (currentPrediction.toLowerCase() === "terminal") {
+    var msg = new SpeechSynthesisUtterance(sentence.join(" "));
+    window.speechSynthesis.speak(msg);
+    document.getElementById("presentation_captions").innerText(msg);
+    sentence = [];
+  } else if (currentPrediction === "") {
+    // DO NOTHING
+  } else {
+    sentence.push(currentPrediction);
+  }
+}
+
+export function initTimer() {
+  setInterval(addPredictionToSentence, 3000);
 }
 
 const trainStatusElement = document.getElementById('train-status');
@@ -41,15 +59,19 @@ const denseUnitsElement = document.getElementById('dense-units');
 export const getDenseUnits = () => +denseUnitsElement.value;
 const statusElement = document.getElementById('status');
 
-export function startPacman() {
-  google.pacman.startGameplay();
+
+var sentence = [];
+var currentPrediction = "";
+export function predictClass(classId) {
+  console.log(classId, labels[classId]);
+  var text = labels[classId].toLowerCase();
+  if (text === "idle") currentPrediction = "";
+  else currentPrediction = text;
+  document.getElementById("presentation_captions").innerHTML = currentPrediction;
+  document.body.setAttribute('data-active', text);
 }
 
-export function predictClass(classId) {
-  google.pacman.keyPressed(CONTROL_CODES[classId]);
-  console.log(classId, labels[classId]);
-  document.body.setAttribute('data-active', labels[classId].toLowerCase());
-}
+
 
 export function isPredicting() {
   statusElement.style.visibility = 'visible';
@@ -98,15 +120,15 @@ const totals = {
 const b1 = document.getElementById("hi");
 const b2 = document.getElementById("my name is");
 const b3 = document.getElementById("j");
-const b4 = document.getElementById("k");
+// const b4 = document.getElementById("k");
 const b5 = document.getElementById("nice to");
 const b6 = document.getElementById("meet");
 const b7 = document.getElementById("you");
 const b8 = document.getElementById("what is");
-const b9 = document.getElementById("your");
+// const b9 = document.getElementById("your");
 const b10 = document.getElementById("i am");
 const b11 = document.getElementById("deaf");
-const b12 = document.getElementById("but");
+// const b12 = document.getElementById("but");
 const b13 = document.getElementById("happy to be");
 const b14 = document.getElementById("talking to");
 const b15 = document.getElementById("sorry");
@@ -143,8 +165,8 @@ b2.addEventListener('mouseup', () => mouseDown = false);
 b3.addEventListener('mousedown', () => handler("j"));
 b3.addEventListener('mouseup', () => mouseDown = false);
 
-b4.addEventListener('mousedown', () => handler("k"));
-b4.addEventListener('mouseup', () => mouseDown = false);
+// b4.addEventListener('mousedown', () => handler("k"));
+// b4.addEventListener('mouseup', () => mouseDown = false);
 
 b5.addEventListener('mousedown', () => handler("nice to"));
 b5.addEventListener('mouseup', () => mouseDown = false);
@@ -158,8 +180,8 @@ b7.addEventListener('mouseup', () => mouseDown = false);
 b8.addEventListener('mousedown', () => handler("what is"));
 b8.addEventListener('mouseup', () => mouseDown = false);
 
-b9.addEventListener('mousedown', () => handler("your"));
-b9.addEventListener('mouseup', () => mouseDown = false);
+// b9.addEventListener('mousedown', () => handler("your"));
+// b9.addEventListener('mouseup', () => mouseDown = false);
 
 b10.addEventListener('mousedown', () => handler("i am"));
 b10.addEventListener('mouseup', () => mouseDown = false);
@@ -167,8 +189,8 @@ b10.addEventListener('mouseup', () => mouseDown = false);
 b11.addEventListener('mousedown', () => handler("deaf"));
 b11.addEventListener('mouseup', () => mouseDown = false);
 
-b12.addEventListener('mousedown', () => handler("but"));
-b12.addEventListener('mouseup', () => mouseDown = false);
+// b12.addEventListener('mousedown', () => handler("but"));
+// b12.addEventListener('mouseup', () => mouseDown = false);
 
 b13.addEventListener('mousedown', () => handler("happy to be"));
 b13.addEventListener('mouseup', () => mouseDown = false);

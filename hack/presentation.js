@@ -1,9 +1,4 @@
 
-function keyDownTextField(e) {
-  var keyCode = e.keyCode;
-  console.log(keyCode);
-}
-document.addEventListener("keydown", keyDownTextField, false)
 
 
 
@@ -141,14 +136,16 @@ var startWebcamStream = function(webcamDevice, parentId) {
               getWebcams()
                 .then((webcamDevices) => {
                   webcamDevices.forEach((webcamDevice) => {
-                    console.log('device id is = ' + webcamDevice.deviceId);
-                  	if (webcamDevice.deviceId == '5d6f654df2e5f3bd68bfbbee0c5f153b89d32e90b91a674dbe5f4024ee6476ea'){
+                    console.log(JSON.stringify(webcamDevice));
+                  	if (webcamDevice.label.indexOf('FaceTime HD Camera') >= 0) {
                   		// Laptop webcam
-	                    startWebcamStream(webcamDevice, "presentation_left");
-                  	}
-                  	if (webcamDevice.deviceId == 'e5856bb14eb4b13888ca5c187ab3fb7dca07b3cc6ff2b1c2cef385d7ffc5edf2'){
-                  		// USB Webcam
+                      console.log('FaceTime HD Camera has opened');
 	                    startWebcamStream(webcamDevice, "presentation_right");
+                  	}
+                  	if (webcamDevice.label.indexOf('USB Camera') >= 0) {
+                  		// USB Webcam
+                      console.log('USB Camera has opened');
+	                    startWebcamStream(webcamDevice, "presentation_left");
                   	}
                   });
                 });

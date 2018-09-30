@@ -65,10 +65,14 @@ var currentPrediction = "";
 export function predictClass(classId) {
   console.log(classId, labels[classId]);
   var text = labels[classId].toLowerCase();
-  if (text === "idle") {
-    currentPrediction = "";
-  } else {
-    currentPrediction = text;
+  if (window.overrideWord != null){
+    currentPrediction = window.overrideWord
+  }else{
+      if (text === "idle") {
+        currentPrediction = "";
+      } else {
+        currentPrediction = text;
+      }
   }
   document.getElementById("presentation_captions").innerHTML = currentPrediction;
   document.body.setAttribute('data-active', text);

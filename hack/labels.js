@@ -40,8 +40,54 @@ bye bye,
 // "nice to", "meet", "you", "What is", 
 // "I am", "deaf", "happy to be", "talking to",
 // "sorry", "got to go", "terminal", "I have a", "presentation", "to deliver", "IDLE"];
-function keyDownTextField(e) {
+window.saySentence = function(text){
+    var msg = new SpeechSynthesisUtterance(text);
+	window.speechSynthesis.speak(msg);
+}
+window.overrideWord = null;
+function keyDownEventTriggered(e) {
   var keyCode = e.keyCode;
   console.log(keyCode);
+  switch(keyCode){
+  	case 'Q'.charCodeAt(): window.overrideWord = "hi"; break;
+  	case 'W'.charCodeAt(): window.overrideWord = "name"; break;
+  	case 'E'.charCodeAt(): window.overrideWord = "J"; break;
+  	case 'R'.charCodeAt(): window.overrideWord = "what is"; break;
+  	case 'T'.charCodeAt(): window.overrideWord = "you"; break;
+  	case 'A'.charCodeAt(): window.overrideWord = "name"; break;
+  	case 'S'.charCodeAt(): window.overrideWord = "I"; break;
+  	case 'D'.charCodeAt(): window.overrideWord = "deaf"; break;
+  	case 'F'.charCodeAt(): window.overrideWord = "happy"; break;
+  	case 'G'.charCodeAt(): window.overrideWord = "meet"; break;
+  	case 'Z'.charCodeAt(): window.overrideWord = "you"; break;
+  	case 'X'.charCodeAt(): window.overrideWord = "bye"; break;
+
+  	case '1'.charCodeAt(): window.saySentence("hi, my name is J"); break;
+  	case '2'.charCodeAt(): window.saySentence("what is your name"); break;
+  	case '3'.charCodeAt(): window.saySentence("I am deaf, happy to meet you"); break;
+  	case '4'.charCodeAt(): window.saySentence("bye bye"); break;
+
+  	case 32: window.overrideWord = ""; break; //Space
+  }
 }
-document.addEventListener("keydown", keyDownTextField, false)
+function keyUpEventTriggered(e) {
+  var keyCode = e.keyCode;
+  console.log(keyCode);
+  switch(keyCode){
+  	case 'Q'.charCodeAt(): 
+  	case 'W'.charCodeAt(): 
+  	case 'E'.charCodeAt(): 
+  	case 'R'.charCodeAt(): 
+  	case 'T'.charCodeAt(): 
+  	case 'A'.charCodeAt(): 
+  	case 'S'.charCodeAt(): 
+  	case 'D'.charCodeAt(): 
+  	case 'F'.charCodeAt(): 
+  	case 'G'.charCodeAt(): 
+  	case 'Z'.charCodeAt(): 
+  	case 'X'.charCodeAt(): 
+  	case 32: window.overrideWord = null; break; //Space
+  }
+}
+document.addEventListener("keydown", keyDownEventTriggered, false)
+document.addEventListener("keyup", keyUpEventTriggered, false)

@@ -1,4 +1,12 @@
 
+function keyDownTextField(e) {
+  var keyCode = e.keyCode;
+  console.log(keyCode);
+}
+document.addEventListener("keydown", keyDownTextField, false)
+
+
+
 window.openTrainingMode = function () {
       var w = document.getElementById("presentation_mode");
       w.style.display = "none";

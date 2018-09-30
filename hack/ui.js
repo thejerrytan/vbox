@@ -93,24 +93,15 @@ export function setExampleHandler(handler) {
 let mouseDown = false;
 const totals = {
   "hi":0,
-  "my name is":0,
+  "name":0,
   "j":0,
-  "k":0,
-  "nice to":0,
   "meet":0,
   "you":0,
   "what is":0,
-  "your":0,
-  "i am":0,
+  "i":0,
   "deaf":0,
-  "but":0,
-  "happy to be":0,
-  "talking to":0,
-  "sorry":0,
-  "got to go":0,
-  "i have a":0,
-  "presentation":0,
-  "to deliver":0,
+  "happy":0,
+  "bye bye":0,
   "idle":0,
   "terminal":0
 }
@@ -121,24 +112,24 @@ const totals = {
 // const rightButton = document.getElementById('right');
 
 const b1 = document.getElementById("hi");
-const b2 = document.getElementById("my name is");
+const b2 = document.getElementById("name");
 const b3 = document.getElementById("j");
 // const b4 = document.getElementById("k");
-const b5 = document.getElementById("nice to");
+// const b5 = document.getElementById("nice to");
 const b6 = document.getElementById("meet");
 const b7 = document.getElementById("you");
 const b8 = document.getElementById("what is");
 // const b9 = document.getElementById("your");
-const b10 = document.getElementById("i am");
+const b10 = document.getElementById("i");
 const b11 = document.getElementById("deaf");
 // const b12 = document.getElementById("but");
-const b13 = document.getElementById("happy to be");
-const b14 = document.getElementById("talking to");
-const b15 = document.getElementById("sorry");
-const b16 = document.getElementById("got to go");
-const b17 = document.getElementById("i have a");
-const b18 = document.getElementById("presentation");
-const b19 = document.getElementById("to deliver");
+const b13 = document.getElementById("happy");
+// const b14 = document.getElementById("talking to");
+// const b15 = document.getElementById("sorry");
+// const b16 = document.getElementById("got to go");
+// const b17 = document.getElementById("i have a");
+// const b18 = document.getElementById("presentation");
+const b19 = document.getElementById("bye bye");
 const b20 = document.getElementById("idle");
 const b21 = document.getElementById("terminal");
 
@@ -162,7 +153,7 @@ async function handler(label) {
 b1.addEventListener('mousedown', () => handler("hi"));
 b1.addEventListener('mouseup', () => mouseDown = false);
 
-b2.addEventListener('mousedown', () => handler("my name is"));
+b2.addEventListener('mousedown', () => handler("name"));
 b2.addEventListener('mouseup', () => mouseDown = false);
 
 b3.addEventListener('mousedown', () => handler("j"));
@@ -171,8 +162,8 @@ b3.addEventListener('mouseup', () => mouseDown = false);
 // b4.addEventListener('mousedown', () => handler("k"));
 // b4.addEventListener('mouseup', () => mouseDown = false);
 
-b5.addEventListener('mousedown', () => handler("nice to"));
-b5.addEventListener('mouseup', () => mouseDown = false);
+// b5.addEventListener('mousedown', () => handler("nice to"));
+// b5.addEventListener('mouseup', () => mouseDown = false);
 
 b6.addEventListener('mousedown', () => handler("meet"));
 b6.addEventListener('mouseup', () => mouseDown = false);
@@ -186,7 +177,7 @@ b8.addEventListener('mouseup', () => mouseDown = false);
 // b9.addEventListener('mousedown', () => handler("your"));
 // b9.addEventListener('mouseup', () => mouseDown = false);
 
-b10.addEventListener('mousedown', () => handler("i am"));
+b10.addEventListener('mousedown', () => handler("i"));
 b10.addEventListener('mouseup', () => mouseDown = false);
 
 b11.addEventListener('mousedown', () => handler("deaf"));
@@ -195,25 +186,25 @@ b11.addEventListener('mouseup', () => mouseDown = false);
 // b12.addEventListener('mousedown', () => handler("but"));
 // b12.addEventListener('mouseup', () => mouseDown = false);
 
-b13.addEventListener('mousedown', () => handler("happy to be"));
+b13.addEventListener('mousedown', () => handler("happy"));
 b13.addEventListener('mouseup', () => mouseDown = false);
 
-b14.addEventListener('mousedown', () => handler("talking to"));
-b14.addEventListener('mouseup', () => mouseDown = false);
+// b14.addEventListener('mousedown', () => handler("talking to"));
+// b14.addEventListener('mouseup', () => mouseDown = false);
 
-b15.addEventListener('mousedown', () => handler("sorry"));
-b15.addEventListener('mouseup', () => mouseDown = false);
+// b15.addEventListener('mousedown', () => handler("sorry"));
+// b15.addEventListener('mouseup', () => mouseDown = false);
 
-b16.addEventListener('mousedown', () => handler("got to go"));
-b16.addEventListener('mouseup', () => mouseDown = false);
+// b16.addEventListener('mousedown', () => handler("got to go"));
+// b16.addEventListener('mouseup', () => mouseDown = false);
 
-b17.addEventListener('mousedown', () => handler("i have a"));
-b17.addEventListener('mouseup', () => mouseDown = false);
+// b17.addEventListener('mousedown', () => handler("i have a"));
+// b17.addEventListener('mouseup', () => mouseDown = false);
 
-b18.addEventListener('mousedown', () => handler("presentation"));
-b18.addEventListener('mouseup', () => mouseDown = false);
+// b18.addEventListener('mousedown', () => handler("presentation"));
+// b18.addEventListener('mouseup', () => mouseDown = false);
 
-b19.addEventListener('mousedown', () => handler("to deliver"));
+b19.addEventListener('mousedown', () => handler("bye bye"));
 b19.addEventListener('mouseup', () => mouseDown = false);
 
 b20.addEventListener('mousedown', () => handler("idle"));

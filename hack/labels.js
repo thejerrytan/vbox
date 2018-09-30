@@ -8,11 +8,11 @@
 // I am sorry but I got to go. I have a presentation to deliver!
 // 							No problem! Go kill it!
 
-// const labels = ["Hi", "name", "J", "What is" "you", 
-// "I", "deaf", "happy", "meet", 
-// "terminal", "bye bye", "IDLE"];
+const labels = ["Hi", "name", "J", "you", "what is", 
+"I", "deaf", "happy", "meet", 
+"terminal", "bye bye", "IDLE"];
 
-const labels = ["hi", "my name is", "j", "nice to", "meet", "you", "what is"];
+// const labels = ["hi", "my name is", "j", "nice to", "meet", "you", "what is"];
 console.log(labels);
 
 export default labels;

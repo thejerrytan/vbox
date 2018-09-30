@@ -156,7 +156,6 @@ async function predict() {
     predictedClass.dispose();
 
     ui.predictClass(classId);
-    console.log('next classId = ' + classId);
     await tf.nextFrame();
   }
   ui.donePredicting();
@@ -171,7 +170,7 @@ document.getElementById('train').addEventListener('click', async () => {
 });
 document.getElementById('predict').addEventListener('click', () => {
   isPredicting = true;
-  ui.initTimer();
+  // ui.initTimer();
   predict();
 });
 

@@ -25,7 +25,15 @@ limitations under the License.
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <header><b>Outspoken</b> [ <span id="presentation_link" onclick="openTrainingMode();">Training</span> | <span id="training_link" onclick="openPresentationMode();">Presentation</span> ]</header>
+  <header><b>Outspoken</b> [ <span id="presentation_link" onclick="openTrainingMode();">Training</span> | <span id="training_link" onclick="openPresentationMode();">Presentation</span> ]
+
+        <div style="position: fixed; opacity: 0" class="webcam-box-outer" id="webcamcontainer">
+          <div class="webcam-box-inner">
+            <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
+          </div>
+        </div>
+
+  </header>
 
   <div id="status"><div>
 
@@ -111,16 +119,12 @@ limitations under the License.
 
         </div><!-- /.hyper-params -->
 
-        <div class="webcam-box-outer">
+<!--         <div class="webcam-box-outer">
           <div class="webcam-box-inner">
             <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
           </div>
         </div>
-
-        <p align="left">
-          <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
-        </p>
-
+ -->
       </div><!-- /.panel -->
 
     </div><!-- /#controller -->
@@ -418,8 +422,9 @@ limitations under the License.
       <p style="color: white; text-align: center;">Actual Cam</p>
     </div>
     <div class="clearfix"></div>
-    <div id="presentation_captions" style="padding:12px 24px;color:white;font-size: 24px;">
-      <p>Captions will appear here</p>
+    <div style="padding:12px 24px;color:white;">
+      <p style="font-size: 42px; font-weight: bold;">
+        <span id="presentation_captions">Captions will appear here</span></p>
     </div>
     <!-- <video autoplay playsinline muted id="webcamP" width="224" height="224"></video> -->
   </div>

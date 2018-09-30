@@ -10,6 +10,9 @@ window.openTrainingMode = function () {
       var z = document.getElementById("training_link");
       z.style.color = "white";
       z.style.fontWeight = "normal";
+      var container = document.getElementById("webcamcontainer");
+      container.style.opacity = 1;
+    
     }
 
 window.openPresentationMode = function () {
@@ -25,6 +28,8 @@ window.openPresentationMode = function () {
       z.style.fontWeight = "normal";
       var caption = document.getElementById("presentation_captions");
       caption.innerText = "Hello World!";
+      var container = document.getElementById("webcamcontainer");
+      container.style.opacity = 0;
     }
 
 var getWebcams = function() {
@@ -125,21 +130,15 @@ var startWebcamStream = function(webcamDevice, parentId) {
       });
     };
 
-
-
               getWebcams()
                 .then((webcamDevices) => {
                   webcamDevices.forEach((webcamDevice) => {
-
-
-
-                  	if (webcamDevice.deviceId == '1b35d451bac59c8612ad932254ab7034e1ee04c25304f14fe82cd8d3b986fb0e'||
-						webcamDevice.deviceId == 'laptop cam'){
+                    console.log('device id is = ' + webcamDevice.deviceId);
+                  	if (webcamDevice.deviceId == '5d6f654df2e5f3bd68bfbbee0c5f153b89d32e90b91a674dbe5f4024ee6476ea'){
                   		// Laptop webcam
 	                    startWebcamStream(webcamDevice, "presentation_left");
                   	}
-                  	if (webcamDevice.deviceId == '4a369d25074b7c57600f499346f45cdc5ddfba182d361552182dd2384b7d53aa'||
-						webcamDevice.deviceId == 'usb cam'){
+                  	if (webcamDevice.deviceId == 'e5856bb14eb4b13888ca5c187ab3fb7dca07b3cc6ff2b1c2cef385d7ffc5edf2'){
                   		// USB Webcam
 	                    startWebcamStream(webcamDevice, "presentation_right");
                   	}

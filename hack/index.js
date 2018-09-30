@@ -156,6 +156,7 @@ async function predict() {
     predictedClass.dispose();
 
     ui.predictClass(classId);
+    console.log('next classId = ' + classId);
     await tf.nextFrame();
   }
   ui.donePredicting();

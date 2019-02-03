@@ -1,14 +1,25 @@
-# TensorFlow.js Examples
+# Project Outspoken
 
-This repository contains a set of examples implemented in
+In lieu with the theme for Startup Weekend 2018, Social Good, we decided to build something for the hard of hearing community.
+
+This is a web application that allows you to collect sign language images, train the model and finally deploy it in your web browser. All the user needs is a webcam. The application is able to detect sign language and translate it into captions. 
+
+After a weekend of pure hardcore hacking, we managed to get it to work and eventually won 2nd price at the hackathon!
+
+Kudos to my team mates : @horensen, @gohjohn for making this possible!
+
+# Reference: This repo is originally a fork from TensorFlow.js Examples
+
 [TensorFlow.js](http://js.tensorflow.org).
 
-Each example directory is standalone so the directory can be copied
-to another project.
+
+# Link to competition video
+
+Here is the link to the pitch and demo!
+
+https://www.dropbox.com/s/95yx7d03ywuangn/Outspoken%20pitch.mp4?dl=0
 
 # Dependencies
-
-Except for `getting_started`, all the examples require the following dependencies to be installed.
 
  - Node.js version 8.9 or higher
  - [NPM cli](https://docs.npmjs.com/cli/npm) OR [Yarn](https://yarnpkg.com/en/)
@@ -45,6 +56,4 @@ can be used for deployment.
 ## Contributing
 
 If you want to contribute an example, please reach out to us on
-[Github issues](https://github.com/tensorflow/tfjs-examples/issues)
-before sending us a pull request as we are trying to keep this set of examples
-small and highly curated.
+[Github issues](https://github.com/thejerrytan/vbox/issues). We would greatly appreciate it if you can contribute datasets as we need highly diverse and massive amount of data in order to make this commercially ready.
